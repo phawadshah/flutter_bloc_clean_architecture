@@ -11,8 +11,8 @@ class KStrings {
   static const String upcoming = "upcoming";
 
   // Tv Shows
-  static const String tvShowsAiringNow = "Tv Shows Airing now";
-  static const String onAirToday = "On Air Today";
+  static const String airingToday = "airing_today";
+  static const String onTheAir = "on_the_air";
 
   // Details
   static const String trailer = "Trailer";
@@ -33,7 +33,7 @@ class KStrings {
 }
 
 class KPathParameters {
-  static const String movieId = "movieId";
+  static const String mediaId = "mediaId";
   static const String category = "category";
   static const String personId = "personId";
 }

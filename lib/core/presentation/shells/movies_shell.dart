@@ -45,7 +45,7 @@ class MoviesShell {
       path: KPaths.movieDetails,
       pageBuilder: (context, state) {
         int movieId =
-            int.parse(state.pathParameters[KPathParameters.movieId].toString());
+            int.parse(state.pathParameters[KPathParameters.mediaId].toString());
         return MaterialPage(
           key: state.pageKey,
           child: MovieDetailsView(

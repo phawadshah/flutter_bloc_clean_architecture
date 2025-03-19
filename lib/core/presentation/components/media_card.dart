@@ -21,7 +21,7 @@ class KMediaCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        navigateToDetailsView(context, media);
+        navigateToMediaDetailsView(context, media);
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(KRadii.img),
@@ -40,7 +40,7 @@ class KMediaCard extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       horizontal: KSizes.sizeXs, vertical: KSizes.sizeXXXs),
                   decoration: BoxDecoration(
-                    color: KColors.primary,
+                    color: Colors.blue,
                     borderRadius: BorderRadius.circular(KRadii.sizeS),
                   ),
                   child: Text(

@@ -7,6 +7,7 @@ import 'package:sgm_block/core/domain/entities/media.dart';
 import 'package:sgm_block/features/movies/domain/entities/movie.dart';
 import 'package:sgm_block/utils/constants/strings.dart';
 import 'package:sgm_block/utils/constants/values.dart';
+import 'package:sgm_block/utils/extensions.dart';
 import 'package:sgm_block/utils/routes/routes.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -99,6 +100,14 @@ bool isTextOverFlowing(String text,
   return textPainter.didExceedMaxLines;
 }
 
+getMediaTitle(String title, {bool isMovie = true}) {
+  if (isMovie) {
+    return title.movieListTitle;
+  } else {
+    return title.tvShowsTitle;
+  }
+}
+
 EdgeInsetsDirectional listPadding(int index, int count) =>
     EdgeInsetsDirectional.only(
         start: index == 0 ? KPaddings.sideDefault : 0,
@@ -110,25 +119,27 @@ playTrailer(String url) async {
   }
 }
 
-/// Navigations
+/// =========== Navigations
 
-navigateToMoviesList(BuildContext context, String category,
-    {bool isMovie = true}) async {
-  if (isMovie) {
-    context.pushNamed(KRouteNames.moviesList, pathParameters: {
+navigateToMediaListView(
+  BuildContext context,
+  String category, {
+  bool isMovie = true,
+}) async {
+  context.pushNamed(
+    isMovie ? KRouteNames.moviesList : KRouteNames.tvShowsList,
+    pathParameters: {
       KPathParameters.category: category,
-    });
-  }
+    },
+  );
 }
 
-navigateToDetailsView(BuildContext context, Media media) {
-  if (media is Movie) {
-    context.pushNamed(KRouteNames.movieDetails, pathParameters: {
-      KPathParameters.movieId: media.id.toString(),
-    });
-  } else {
-    log('not a movie');
-  }
+navigateToMediaDetailsView(BuildContext context, Media media) {
+  context.pushNamed(
+      media is Movie ? KRouteNames.movieDetails : KRouteNames.tvShowDetails,
+      pathParameters: {
+        KPathParameters.mediaId: media.id.toString(),
+      });
 }
 
 navigateToPersonView(BuildContext context, int id) {

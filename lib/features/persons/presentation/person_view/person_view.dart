@@ -26,7 +26,7 @@ class PersonView extends StatelessWidget {
         builder: (context, state) {
           switch (state.status) {
             case RequestStatus.loading:
-              return const KLoader();
+              return const KRetryLoader();
             case RequestStatus.loaded:
               return PersonWidget(
                 person: state.person!,
@@ -38,6 +38,8 @@ class PersonView extends StatelessWidget {
                   context.read<PersonBloc>().add(GetPersonEvent(personId));
                 },
               );
+            case RequestStatus.retrying:
+              return KRetryLoader(key: key);
           }
         },
       ),

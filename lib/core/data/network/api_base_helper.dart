@@ -19,7 +19,8 @@ class ApiHelper {
           ApiHeaders.buildHeaders(ApiConstants.token);
       http.Response response = await client
           .get(url, headers: headers ?? defaultHeaders)
-          .timeout(const Duration(seconds: 10));
+          .timeout(const Duration(seconds: 10),
+              onTimeout: () => throw TimeOutException());
       return _handleResponse(response);
     } on SocketException {
       throw FetchDataException();

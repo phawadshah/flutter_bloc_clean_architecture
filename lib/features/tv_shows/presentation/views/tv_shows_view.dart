@@ -27,7 +27,7 @@ class TvShowsView extends StatelessWidget {
           builder: (context, state) {
             switch (state.status) {
               case RequestStatus.loading:
-                return KLoader(key: key);
+                return KRetryLoader(key: key);
               case RequestStatus.loaded:
                 return TvShowsWidget(
                   trending: state.tvShows[0],
@@ -43,6 +43,8 @@ class TvShowsView extends StatelessWidget {
                     context.read<TvShowsBloc>().add(GetTvShowsEvent());
                   },
                 );
+              case RequestStatus.retrying:
+                return KRetryLoader(key: key);
             }
           },
         ),
@@ -68,18 +70,14 @@ class TvShowsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log('airingToday: ${airingToday.length}');
-    log('onTheAir: ${onTheAir.length}');
-    log('popular: ${popular.length}');
-    log('topRated: ${topRated.length}');
     return Scrollbar(
       child: SingleChildScrollView(
         child: Column(
           children: [
             KPosterSlider(medias: trending),
             KGaps.medium.height,
-            KMediaSection(title: KStrings.onAirToday, medias: airingToday),
-            KMediaSection(title: KStrings.tvShowsAiringNow, medias: onTheAir),
+            KMediaSection(title: KStrings.airingToday, medias: airingToday),
+            KMediaSection(title: KStrings.onTheAir, medias: onTheAir),
             KMediaSection(title: KStrings.popular, medias: popular),
             KMediaSection(title: KStrings.topRated, medias: topRated),
           ],

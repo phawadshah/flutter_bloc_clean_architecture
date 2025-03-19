@@ -42,7 +42,7 @@ class _KPosterSliderState extends State<KPosterSlider> {
             return Stack(
               children: [
                 GestureDetector(
-                  onTap: () => navigateToDetailsView(context, media),
+                  onTap: () => navigateToMediaDetailsView(context, media),
                   child: KPoster(media.img),
                 ),
               ],

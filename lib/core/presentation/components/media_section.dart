@@ -27,9 +27,9 @@ class KMediaSection extends StatelessWidget {
     return Column(
       children: [
         KSectionTitle(
-          title: title.mediaListTitle,
+          title: getMediaTitle(title, isMovie: medias.any((e) => e.isMovie)),
           onTap: () {
-            navigateToMoviesList(context, title.toLowerCase(),
+            navigateToMediaListView(context, title.toLowerCase(),
                 isMovie: medias.any((e) => e.isMovie));
           },
         ),

@@ -74,6 +74,15 @@ class APiUrls {
         queryParameters: {ApiQueryParameters.page: page.toString()});
   }
 
+  static Uri getTvShowDetails(int id) {
+    return _buildUrl("${ApiEndpoints.tv}/$id");
+  }
+
+  static Uri getTvShowsList(String category, {int page = 1}) {
+    return _buildUrl("${ApiEndpoints.tv}/$category",
+        queryParameters: {ApiQueryParameters.page: page.toString()});
+  }
+
   /// Persons
   static Uri getPerson(int id) {
     return _buildUrl("${ApiEndpoints.person}/$id",

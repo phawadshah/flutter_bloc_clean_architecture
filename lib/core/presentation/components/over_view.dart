@@ -6,17 +6,17 @@ import 'package:sgm_block/utils/extensions/extensions.dart';
 class KOverViewWidget extends StatelessWidget {
   const KOverViewWidget({
     super.key,
-    required this.movieDetails,
+    required this.mediaDetails,
   });
 
-  final MediaDetails movieDetails;
+  final MediaDetails mediaDetails;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: KPaddings.sideDefault),
       child: Text(
-        movieDetails.overview,
+        mediaDetails.overview,
         style: context.bodyMedium,
       ),
     );

@@ -38,6 +38,7 @@ class ApiEndpoints {
   static const String onTheAirTvShows = '/3/tv/on_the_air';
   static const String popularTvShows = '/3/tv/popular';
   static const String topRatedTvShows = '/3/tv/top_rated';
+  static const String tv = '/3/tv';
 
   /// Person
   static const String person = '/3/person';

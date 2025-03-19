@@ -12,3 +12,14 @@ class FetchDataException extends ServerException {
           ),
         );
 }
+
+class TimeOutException extends ServerException {
+  TimeOutException({String message = "Time Out, Please check your connection"})
+      : super(
+          errorMessageModel: ErrorMessageModel(
+            statusCode: 408,
+            statusMessage: message,
+            success: false,
+          ),
+        );
+}

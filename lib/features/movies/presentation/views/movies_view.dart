@@ -29,7 +29,7 @@ class MoviesView extends StatelessWidget {
           builder: (context, state) {
             switch (state.status) {
               case RequestStatus.loading:
-                return KLoader(key: key);
+                return KRetryLoader(key: key);
               case RequestStatus.loaded:
                 return MoviesWidget(
                   trendingMovies: state.movies[0],
@@ -45,6 +45,8 @@ class MoviesView extends StatelessWidget {
                     context.read<MoviesBloc>().add(GetMoviesEvent());
                   },
                 );
+              case RequestStatus.retrying:
+                return KRetryLoader(key: key);
             }
           },
         ),

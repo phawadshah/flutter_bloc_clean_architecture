@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sgm_block/core/domain/entities/media_details.dart';
 import 'package:sgm_block/core/presentation/components/poster.dart';
+import 'package:sgm_block/features/movies/domain/entities/movie_details.dart';
 import 'package:sgm_block/utils/constants/colors.dart';
 import 'package:sgm_block/utils/constants/values.dart';
 import 'package:sgm_block/utils/extensions/extensions.dart';
@@ -37,21 +38,36 @@ class KDetailsPoster extends StatelessWidget {
         ),
         Positioned(
           bottom: 0,
-          child: Row(
+          left: KPaddings.sideDefault - 4,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Icon(
-                Icons.star_rounded,
-                color: KColors.ratingIconColor,
+              SizedBox(
+                width: 230,
+                child: Text(
+                  mediaDetails.title.toString(),
+                  style: context.titleMedium,
+                ),
               ),
-              Text(
-                mediaDetails.voteAverage.toStringAsFixed(1),
-                style: context.titleSmall,
-              ),
-              KGaps.small.width,
-              Text(
-                getFormatedDateMMMyyyy(mediaDetails.releaseDate.toString()),
-                style: context.titleSmall,
-              ),
+              if (mediaDetails is MovieDetails)
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.star_rounded,
+                      color: KColors.ratingIconColor,
+                    ),
+                    Text(
+                      mediaDetails.voteAverage.toStringAsFixed(1),
+                      style: context.titleSmall,
+                    ),
+                    KGaps.small.width,
+                    Text(
+                      getFormatedDateMMMyyyy(
+                          mediaDetails.releaseDate.toString()),
+                      style: context.titleSmall,
+                    ),
+                  ],
+                ),
             ],
           ),
         ),
