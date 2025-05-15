@@ -12,6 +12,11 @@ class APiUrls {
 
   /// ====== Movies
 
+  static Uri urlCreatedByFawad({int page = 1}) {
+    return _buildUrl(ApiEndpoints.trendingMovies,
+        queryParameters: {ApiQueryParameters.page: page.toString()});
+  }
+
   static Uri getTrendingMovies({int page = 1}) {
     return _buildUrl(ApiEndpoints.trendingMovies,
         queryParameters: {ApiQueryParameters.page: page.toString()});
