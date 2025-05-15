@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sgm_block/core/domain/entities/media_details.dart';
 import 'package:sgm_block/core/presentation/components/cast_list_widget.dart';
 import 'package:sgm_block/core/presentation/components/details_poster.dart';
 import 'package:sgm_block/core/presentation/components/error_widget.dart';
+import 'package:sgm_block/core/presentation/components/expandable_text.dart';
 import 'package:sgm_block/core/presentation/components/loader.dart';
-import 'package:sgm_block/core/presentation/components/over_view.dart';
 import 'package:sgm_block/core/presentation/components/play_button.dart';
 import 'package:sgm_block/core/presentation/components/reviews_slider.dart';
 import 'package:sgm_block/core/services/service_locator.dart';
-import 'package:sgm_block/features/movies/presentation/components/related_media.dart';
+import 'package:sgm_block/features/tv_shows/presentation/components/tab_widget.dart';
 import 'package:sgm_block/features/tv_shows/presentation/controllers/tv_show_details_bloc/tv_show_details_bloc.dart';
 import 'package:sgm_block/features/tv_shows/presentation/controllers/tv_show_details_bloc/tv_show_details_event.dart';
 import 'package:sgm_block/features/tv_shows/presentation/controllers/tv_show_details_bloc/tv_show_details_state.dart';
-import 'package:sgm_block/utils/constants/colors.dart';
 import 'package:sgm_block/utils/constants/values.dart';
 import 'package:sgm_block/utils/enums.dart';
 import 'package:sgm_block/utils/extensions/extensions.dart';
@@ -35,11 +33,9 @@ class TvShowDetailsView extends StatelessWidget {
           builder: (context, state) {
             switch (state.status) {
               case RequestStatus.loading:
-                return KRetryLoader(key: key);
+                return KLoader(key: key);
               case RequestStatus.loaded:
-                return TvShowDetailsWidget(
-                  tvShowDetails: state.mediaDetails!,
-                );
+                return TvShowDetailsWidget(tvShowDetails: state.mediaDetails!);
               case RequestStatus.error:
                 return KErrorWidget(
                   message: state.message,
@@ -50,7 +46,7 @@ class TvShowDetailsView extends StatelessWidget {
                   },
                 );
               case RequestStatus.retrying:
-                return KRetryLoader(key: key);
+                return (KRetryLoader(key: key));
             }
           },
         ),
@@ -73,20 +69,25 @@ class TvShowDetailsWidget extends StatelessWidget {
     return Scrollbar(
       child: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             KDetailsPoster(mediaDetails: tvShowDetails),
             KPlayButton(trailerUrl: tvShowDetails.trailerUrl),
             KGaps.medium.height,
-            KOverViewWidget(mediaDetails: tvShowDetails),
-            KGaps.betweenItems.height,
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: KPaddings.sideDefault),
+              child: KExpandableTextWidget(text: tvShowDetails.overview),
+            ),
             KDetailsViewButtons(mediaDetails: tvShowDetails),
-            // KGaps.betweenItems.height,
-            // KCastListView(listOfCast: tvShowDetails.cast),
-            // KGaps.betweenItems.height,
-            // KReviewsSlider(reviews: tvShowDetails.reviews),
-            // KGaps.betweenItems.height,
-            // RelatedMovies(medias: tvShowDetails.similar),
-            // KGaps.betweenItems.height,
+            KGaps.betweenItems.height,
+            KCastListView(listOfCast: tvShowDetails.cast),
+            KGaps.betweenItems.height,
+            KReviewsSlider(reviews: tvShowDetails.reviews),
+            KGaps.betweenItems.height,
+            TabWidget(tvShowDetails: tvShowDetails),
+            KGaps.betweenItems.height,
+            KGaps.betweenItems.height,
           ],
         ),
       ),

@@ -5,8 +5,8 @@ import 'package:sgm_block/core/presentation/components/cast_list_widget.dart';
 import 'package:sgm_block/core/presentation/components/details_poster.dart';
 import 'package:sgm_block/core/presentation/components/details_view_button.dart';
 import 'package:sgm_block/core/presentation/components/error_widget.dart';
+import 'package:sgm_block/core/presentation/components/expandable_text.dart';
 import 'package:sgm_block/core/presentation/components/loader.dart';
-import 'package:sgm_block/core/presentation/components/over_view.dart';
 import 'package:sgm_block/core/presentation/components/play_button.dart';
 import 'package:sgm_block/core/presentation/components/reviews_slider.dart';
 import 'package:sgm_block/core/services/service_locator.dart';
@@ -32,7 +32,7 @@ class MovieDetailsView extends StatelessWidget {
           builder: (context, state) {
             switch (state.status) {
               case RequestStatus.loading:
-                return KRetryLoader(key: key);
+                return KLoader(key: key);
               case RequestStatus.loaded:
                 return MovieDetailsWidget(
                   movieDetails: state.movieDetails!,
@@ -74,8 +74,11 @@ class MovieDetailsWidget extends StatelessWidget {
             KDetailsPoster(mediaDetails: movieDetails),
             KPlayButton(trailerUrl: movieDetails.trailerUrl),
             KGaps.medium.height,
-            KOverViewWidget(mediaDetails: movieDetails),
-            KGaps.betweenItems.height,
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: KPaddings.sideDefault),
+              child: KExpandableTextWidget(text: movieDetails.overview),
+            ),
             KDetailsViewButtons(mediaDetails: movieDetails),
             KGaps.betweenItems.height,
             KCastListView(listOfCast: movieDetails.cast),

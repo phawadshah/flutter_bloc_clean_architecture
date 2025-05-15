@@ -9,9 +9,9 @@ class KLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: SpinKitCircle(
+      child: SpinKitFadingCube(
         color: KColors.primary,
-        size: KSizes.sizeXl * 2,
+        size: KSizes.sizeXXl,
         duration: Duration(milliseconds: 2000),
       ),
     );
@@ -24,9 +24,9 @@ class KRetryLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: SpinKitFadingCube(
+      child: SpinKitCircle(
         color: KColors.primary,
-        size: KSizes.sizeXXl,
+        size: KSizes.sizeXl * 2,
         duration: Duration(milliseconds: 2000),
       ),
     );

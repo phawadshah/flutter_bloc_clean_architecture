@@ -20,6 +20,9 @@ class MoviesListBloc extends Bloc<MoviesListEvent, MoviesListState> {
     GetMoviesListEvent event,
     Emitter<MoviesListState> emit,
   ) async {
+    if (state.status == RequestStatus.error) {
+      emit(state.copyWith(status: RequestStatus.retrying));
+    }
     final errorOrMovies = await _getMoviesListUsecase(event.category);
     errorOrMovies.fold((error) {
       log(error.message.toString());

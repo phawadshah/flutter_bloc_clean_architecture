@@ -6,11 +6,12 @@ class KListView extends StatelessWidget {
   final int itemCount;
   final double height;
   final Widget? Function(BuildContext, int) itemBuilder;
-  const KListView(
-      {super.key,
-      required this.itemCount,
-      required this.itemBuilder,
-      this.height = 210});
+  const KListView({
+    super.key,
+    required this.itemCount,
+    required this.itemBuilder,
+    this.height = 210,
+  });
 
   @override
   Widget build(BuildContext context) {

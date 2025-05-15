@@ -13,7 +13,6 @@ import 'package:sgm_block/features/movies/presentation/views/movies_list_view.da
 import 'package:sgm_block/utils/constants/strings.dart';
 import 'package:sgm_block/utils/constants/values.dart';
 import 'package:sgm_block/utils/enums.dart';
-import 'package:sgm_block/utils/extensions.dart';
 import 'package:sgm_block/utils/extensions/extensions.dart';
 import 'package:sgm_block/utils/helper.dart';
 
@@ -29,7 +28,7 @@ class MoviesView extends StatelessWidget {
           builder: (context, state) {
             switch (state.status) {
               case RequestStatus.loading:
-                return KRetryLoader(key: key);
+                return KLoader(key: key);
               case RequestStatus.loaded:
                 return MoviesWidget(
                   trendingMovies: state.movies[0],

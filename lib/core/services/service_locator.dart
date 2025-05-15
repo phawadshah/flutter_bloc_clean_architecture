@@ -17,6 +17,7 @@ import 'package:sgm_block/features/tv_shows/data/datasource/tv_shows_remote_data
 import 'package:sgm_block/features/tv_shows/data/repository/tv_shows_repository_impl.dart';
 import 'package:sgm_block/features/tv_shows/domain/repository/tv_shows_repository.dart';
 import 'package:sgm_block/features/tv_shows/domain/usercase/get_tv_show_details_usecase.dart';
+import 'package:sgm_block/features/tv_shows/domain/usercase/get_tv_show_episodes_usecase.dart';
 import 'package:sgm_block/features/tv_shows/domain/usercase/get_tv_shows_list_usecase.dart';
 import 'package:sgm_block/features/tv_shows/domain/usercase/get_tv_shows_usecase.dart';
 import 'package:sgm_block/features/tv_shows/presentation/controllers/tv_show_details_bloc/tv_show_details_bloc.dart';
@@ -68,6 +69,8 @@ class ServiceLocator {
         GetTvShowDetailsUsecase(tvShowsRepository: sl<TvShowsRepository>()));
     sl.registerLazySingleton(() =>
         GetTvShowsListUsecase(tvShowsRepository: sl<TvShowsRepository>()));
+    sl.registerLazySingleton(() =>
+        GetTvShowEpisodesUsecase(tvShowsRepository: sl<TvShowsRepository>()));
 
     /// ===== Persons
     sl.registerLazySingleton<GetPersonUsecase>(
@@ -89,7 +92,9 @@ class ServiceLocator {
     sl.registerFactory<TvShowsBloc>(
         () => TvShowsBloc(getTvShowsUseCase: sl<GetTvShowsUsecase>()));
     sl.registerFactory<TvShowDetailsBloc>(() => TvShowDetailsBloc(
-        getTvShowDetailsUsecase: sl<GetTvShowDetailsUsecase>()));
+          getTvShowDetailsUsecase: sl<GetTvShowDetailsUsecase>(),
+          getTvShowEpisodesUsecase: sl<GetTvShowEpisodesUsecase>(),
+        ));
     sl.registerFactory<TvShowsListBloc>(() =>
         TvShowsListBloc(getTvShowsListUsecase: sl<GetTvShowsListUsecase>()));
 

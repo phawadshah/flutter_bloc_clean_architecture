@@ -1,8 +1,6 @@
-import 'dart:developer';
-
-import 'package:sgm_block/features/movies/data/models/movie_cast_model.dart';
+import 'package:sgm_block/core/data/models/cast_model.dart';
+import 'package:sgm_block/core/data/models/review_model.dart';
 import 'package:sgm_block/features/movies/data/models/movie_model.dart';
-import 'package:sgm_block/features/movies/data/models/movie_review_model.dart';
 import 'package:sgm_block/features/movies/domain/entities/movie_details.dart';
 import 'package:sgm_block/utils/helper.dart';
 
@@ -34,12 +32,12 @@ class MovieDetailsModel extends MovieDetails {
       backdropUrl: getBackdropUrl(json["backdrop_path"]),
       trailerUrl: getTrailerUrl(json),
       cast: ((json["credits"]["cast"] as List)
-          .map((cast) => MovieCastModel.fromJson(cast))).take(20).toList(),
+          .map((cast) => CastModel.fromJson(cast))).take(20).toList(),
       similar: (json['similar']['results'] as List)
           .map((movie) => MovieModel.fromJson(movie))
           .toList(),
       reviews: (json['reviews']['results'] as List)
-          .map((review) => MovieReviewModel.fromJson(review))
+          .map((review) => ReviewModel.fromJson(review))
           .toList(),
     );
   }

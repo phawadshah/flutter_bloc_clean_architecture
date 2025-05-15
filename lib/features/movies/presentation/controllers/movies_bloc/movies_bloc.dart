@@ -16,6 +16,9 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
     GetMoviesEvent event,
     Emitter<MoviesState> emit,
   ) async {
+    if (state.status == RequestStatus.error) {
+      emit(state.copyWith(status: RequestStatus.retrying));
+    }
     final result = await _getMoviesUseCase(const []);
     result.fold(
       (error) => emit(

@@ -13,6 +13,11 @@ class KStrings {
   // Tv Shows
   static const String airingToday = "airing_today";
   static const String onTheAir = "on_the_air";
+  static const String episode = "Episode";
+  static const String episodes = "Episodes";
+  static const String season = "Season";
+  static const String seasons = "Seasons";
+  static const String youMayAlsoLike = "You may also like";
 
   // Details
   static const String trailer = "Trailer";
@@ -30,6 +35,7 @@ class KStrings {
   static const String department = "Department: ";
   static const String overView = "Overview";
   static const String movies = "Movies";
+  static const String filmography = "Filmography";
 }
 
 class KPathParameters {

@@ -6,9 +6,9 @@ import 'package:sgm_block/utils/constants/strings.dart';
 import 'package:sgm_block/utils/constants/values.dart';
 import 'package:sgm_block/utils/extensions/extensions.dart';
 
-class PersonRelatedMovies extends StatelessWidget {
+class PersonFilmography extends StatelessWidget {
   final List<Media> medias;
-  const PersonRelatedMovies({
+  const PersonFilmography({
     super.key,
     required this.medias,
   });
@@ -20,7 +20,7 @@ class PersonRelatedMovies extends StatelessWidget {
         : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(KStrings.movies, style: context.titleMedium),
+              Text(KStrings.filmography, style: context.titleMedium),
               KGaps.small.height,
               KMediaGrid(medias: medias),
             ],

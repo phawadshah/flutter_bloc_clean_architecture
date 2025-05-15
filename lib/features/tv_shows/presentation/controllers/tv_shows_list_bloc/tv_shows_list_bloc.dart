@@ -2,8 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sgm_block/features/tv_shows/domain/usercase/get_tv_shows_list_usecase.dart';
-import 'package:sgm_block/features/tv_shows/presentation/controllers/tv_shows_bloc/tv_shows_event.dart';
-import 'package:sgm_block/features/tv_shows/presentation/controllers/tv_shows_bloc/tv_shows_state.dart';
 import 'package:sgm_block/features/tv_shows/presentation/controllers/tv_shows_list_bloc/tv_shows_list_event.dart';
 import 'package:sgm_block/features/tv_shows/presentation/controllers/tv_shows_list_bloc/tv_shows_list_state.dart';
 import 'package:sgm_block/utils/enums.dart';
@@ -22,6 +20,9 @@ class TvShowsListBloc extends Bloc<TvShowsListEvent, TvShowsListState> {
     GetTvShowsListEvent event,
     Emitter<TvShowsListState> emit,
   ) async {
+    if (state.status == RequestStatus.error) {
+      emit(state.copyWith(status: RequestStatus.retrying));
+    }
     final errorOrMovies = await _getTvShowsListUsecase(event.category);
     errorOrMovies.fold((error) {
       log(error.message.toString());

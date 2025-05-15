@@ -6,7 +6,6 @@ import 'package:sgm_block/core/presentation/components/list_view.dart';
 import 'package:sgm_block/core/presentation/components/media_card.dart';
 import 'package:sgm_block/core/presentation/components/section_title.dart';
 import 'package:sgm_block/utils/constants/values.dart';
-import 'package:sgm_block/utils/extensions.dart';
 import 'package:sgm_block/utils/extensions/extensions.dart';
 import 'package:sgm_block/utils/helper.dart';
 

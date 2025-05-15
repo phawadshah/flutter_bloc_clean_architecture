@@ -1,38 +1,39 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:sgm_block/core/presentation/components/empty_widget.dart';
-import 'package:sgm_block/features/persons/domain/entities/person.dart';
 import 'package:sgm_block/utils/constants/strings.dart';
 import 'package:sgm_block/utils/constants/values.dart';
 import 'package:sgm_block/utils/extensions/extensions.dart';
 
-class PersonOverview extends StatefulWidget {
-  final Person person;
-  const PersonOverview({super.key, required this.person});
+class KExpandableTextWidget extends StatefulWidget {
+  final String? text;
+  final int maxLines;
+  const KExpandableTextWidget({
+    super.key,
+    required this.text,
+    this.maxLines = 3,
+  });
 
   @override
-  State<PersonOverview> createState() => _PersonOverviewState();
+  State<KExpandableTextWidget> createState() => _KExpandableTextWidgetState();
 }
 
-class _PersonOverviewState extends State<PersonOverview> {
+class _KExpandableTextWidgetState extends State<KExpandableTextWidget> {
   bool isExpanded = false;
   @override
   Widget build(BuildContext context) {
-    log(widget.person.id.toString());
-    if (widget.person.biography == null || widget.person.biography!.isEmpty) {
+    if (widget.text == null || widget.text!.isEmpty) {
       return const KEmptyWidget();
     }
 
     return LayoutBuilder(
       builder: (context, constraints) {
         TextSpan textSpan = TextSpan(
-          text: widget.person.biography ?? '',
+          text: widget.text ?? '',
           style: context.bodyMedium,
         );
         TextPainter textPainter = TextPainter(
           text: textSpan,
-          maxLines: 5,
+          maxLines: widget.maxLines,
           textDirection: TextDirection.ltr,
         );
         textPainter.layout(maxWidth: constraints.maxWidth);
@@ -44,9 +45,9 @@ class _PersonOverviewState extends State<PersonOverview> {
             Text(KStrings.overView, style: context.titleMedium),
             KGaps.small.height,
             Text(
-              widget.person.biography!,
+              widget.text!,
               style: context.bodyMedium,
-              maxLines: isExpanded ? null : 5,
+              maxLines: isExpanded ? null : widget.maxLines,
               overflow:
                   isExpanded ? TextOverflow.visible : TextOverflow.ellipsis,
             ),

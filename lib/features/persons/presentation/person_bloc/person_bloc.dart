@@ -19,6 +19,9 @@ class PersonBloc extends Bloc<PersonEvent, PersonState> {
     GetPersonEvent event,
     Emitter<PersonState> emit,
   ) async {
+    if (state.status == RequestStatus.error) {
+      emit(state.copyWith(status: RequestStatus.retrying));
+    }
     var personOrError = await _getPersonUsecase(event.id);
     personOrError.fold(
       (error) => emit(

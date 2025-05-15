@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sgm_block/core/presentation/components/error_widget.dart';
+import 'package:sgm_block/core/presentation/components/expandable_text.dart';
 import 'package:sgm_block/core/presentation/components/loader.dart';
 import 'package:sgm_block/core/services/service_locator.dart';
 import 'package:sgm_block/features/persons/domain/entities/person.dart';
 import 'package:sgm_block/features/persons/presentation/components/person_header.dart';
-import 'package:sgm_block/features/persons/presentation/components/person_overview.dart';
 import 'package:sgm_block/features/persons/presentation/components/person_related_movies.dart';
 import 'package:sgm_block/features/persons/presentation/person_bloc/person_bloc.dart';
 import 'package:sgm_block/features/persons/presentation/person_bloc/person_event.dart';
@@ -26,7 +26,7 @@ class PersonView extends StatelessWidget {
         builder: (context, state) {
           switch (state.status) {
             case RequestStatus.loading:
-              return const KRetryLoader();
+              return KLoader(key: key);
             case RequestStatus.loaded:
               return PersonWidget(
                 person: state.person!,
@@ -70,8 +70,8 @@ class PersonWidget extends StatelessWidget {
             children: [
               PersonHeader(person: person),
               KGaps.betweenSections.height,
-              PersonOverview(person: person),
-              PersonRelatedMovies(medias: person.media)
+              KExpandableTextWidget(text: person.biography),
+              PersonFilmography(medias: person.media)
             ],
           ),
         ),

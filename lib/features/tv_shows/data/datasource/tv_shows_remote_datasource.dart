@@ -1,16 +1,18 @@
 import 'dart:convert';
-
+import 'dart:developer';
 import 'package:sgm_block/core/data/network/api_base_helper.dart';
 import 'package:sgm_block/core/data/network/api_urls.dart';
-import 'package:sgm_block/core/domain/entities/media_list.dart';
 import 'package:sgm_block/features/tv_shows/data/models/tv_show_details_model.dart';
+import 'package:sgm_block/features/tv_shows/data/models/tv_show_episode_model.dart';
 import 'package:sgm_block/features/tv_shows/data/models/tv_shows_list_model.dart';
 import 'package:sgm_block/features/tv_shows/data/models/tv_shows_model.dart';
+import 'package:sgm_block/features/tv_shows/domain/enitites/tv_show_episode.dart';
 
 abstract class TvShowsRemoteDatasource {
   Future<List<List<TvShowModel>>> getTvShows();
   Future<TvShowDetailsModel> getTvShowDetails(int id);
   Future<TvShowsListModel> getTvShowsList(String category, int page);
+  Future<List<TvShowEpisode>> getTvShowEpisodes(int tvShowId, int season);
 }
 
 class TvShowsRemoteDatasourceImpl extends TvShowsRemoteDatasource {
@@ -23,7 +25,7 @@ class TvShowsRemoteDatasourceImpl extends TvShowsRemoteDatasource {
       _getAiringTodyTvShows(page: 4),
       _getOnTheAirTvShows(page: 2),
       _getPopularTvShows(),
-      _getTopRatedTvShows(page: 3),
+      _getTopRatedTvShows(page: 1),
     ]);
   }
 
@@ -38,6 +40,16 @@ class TvShowsRemoteDatasourceImpl extends TvShowsRemoteDatasource {
     var response = apiHelper.get(APiUrls.getTvShowsList(category, page: page));
     return response
         .then((value) => TvShowsListModel.fromJson(jsonDecode(value.body)));
+  }
+
+  @override
+  Future<List<TvShowEpisode>> getTvShowEpisodes(
+      int tvShowId, int season) async {
+    var response =
+        await apiHelper.get(APiUrls.getTvShowEpisodes(tvShowId, season - 1));
+    return List<TvShowEpisode>.from(
+        (jsonDecode(response.body)['episodes'] as List)
+            .map((episdoe) => TvShowEpisodeModel.fromJson(episdoe)));
   }
 
   Future<List<TvShowModel>> _getTrendingTvShows({int page = 1}) async {

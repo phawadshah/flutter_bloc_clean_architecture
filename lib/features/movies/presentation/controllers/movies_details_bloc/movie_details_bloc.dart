@@ -20,6 +20,9 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsState> {
     GetMovieDetailsEvent event,
     Emitter<MovieDetailsState> emit,
   ) async {
+    if (state.status == RequestStatus.error) {
+      emit(state.copyWith(status: RequestStatus.retrying));
+    }
     final result = await _getMovieDetailsUseCase(event.movieId);
     result.fold((error) {
       emit(

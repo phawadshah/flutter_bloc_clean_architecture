@@ -1,13 +1,14 @@
-import 'dart:developer';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sgm_block/core/data/network/api_constants.dart';
 import 'package:sgm_block/core/domain/entities/media.dart';
 import 'package:sgm_block/features/movies/domain/entities/movie.dart';
+import 'package:sgm_block/features/tv_shows/domain/enitites/tv_show_details.dart';
 import 'package:sgm_block/utils/constants/strings.dart';
 import 'package:sgm_block/utils/constants/values.dart';
-import 'package:sgm_block/utils/extensions.dart';
+import 'package:sgm_block/utils/extensions/extensions.dart';
 import 'package:sgm_block/utils/routes/routes.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -28,11 +29,19 @@ String getBackdropUrl(String? path) {
   }
 }
 
-String getCastProfileImage(Map<String, dynamic> json) {
+String getCastProfileImageUrl(Map<String, dynamic> json) {
   if (json['profile_path'] != null) {
     return ApiConstants.baseProfileUrl + json['profile_path'];
   } else {
     return ApiConstants.castPlaceHolder;
+  }
+}
+
+String getStuillPathUrl(Map<String, dynamic> json) {
+  if (json['still_path'] != null) {
+    return ApiConstants.baseStillUrl + json['still_path'];
+  } else {
+    return ApiConstants.stillPlaceHolder;
   }
 }
 
@@ -117,6 +126,16 @@ playTrailer(String url) async {
   if (await canLaunchUrl(Uri.parse(url))) {
     await launchUrl(Uri.parse(url));
   }
+}
+
+String getEpisodesCount(TvShowDetails tvShow) {
+  int episodes = tvShow.numberOfEpisodes;
+  return "$episodes ${episodes == 1 ? KStrings.episode : KStrings.episodes}";
+}
+
+String getSeasonsCount(TvShowDetails tvShow) {
+  int seasons = tvShow.numberOfSeasons;
+  return "$seasons ${seasons == 1 ? KStrings.season : KStrings.seasons}";
 }
 
 /// =========== Navigations

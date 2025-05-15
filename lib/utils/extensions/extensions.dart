@@ -26,3 +26,11 @@ extension SpaceExtension on num {
   SizedBox get height => SizedBox(height: toDouble());
   SizedBox get width => SizedBox(width: toDouble());
 }
+
+extension MediaListTitle on String {
+  String get movieListTitle =>
+      '${replaceAll('_', ' ').split(' ').map((word) => word[0].toUpperCase() + word.substring(1)).join(' ')} Movies';
+
+  String get tvShowsTitle =>
+      '${replaceAll('_', ' ').split(' ').map((word) => word[0].toUpperCase() + word.substring(1)).join(' ')} Tv Shows';
+}

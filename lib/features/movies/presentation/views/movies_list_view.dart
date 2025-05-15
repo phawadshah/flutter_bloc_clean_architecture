@@ -28,7 +28,7 @@ class MoviesListView extends StatelessWidget {
           builder: (context, state) {
             switch (state.status) {
               case RequestStatus.loading:
-                return KRetryLoader(key: key);
+                return KLoader(key: key);
               case RequestStatus.loaded:
                 return KPaginatedMediaGrid(
                   medias: state.mediaList!.mediaList,

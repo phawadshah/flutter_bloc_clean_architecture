@@ -11,7 +11,7 @@ class GetPersonUsecase extends BaseUseCase<Person, int> {
     required PersonRepository personRepository,
   }) : _personRepository = personRepository;
   @override
-  Future<Either<Failure, Person>> call(int p) async {
+  Future<Either<Failure, Person>> call(int p /* person id */) async {
     return await _personRepository.getPerson(p);
   }
 }

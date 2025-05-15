@@ -1,7 +1,7 @@
-import 'package:sgm_block/features/movies/domain/entities/movie_review.dart';
+import 'package:sgm_block/core/domain/entities/review.dart';
 
-class MovieReviewModel extends MovieReview {
-  const MovieReviewModel({
+class ReviewModel extends Review {
+  const ReviewModel({
     required super.author,
     required super.content,
     super.id,
@@ -10,8 +10,8 @@ class MovieReviewModel extends MovieReview {
     super.date,
   });
 
-  factory MovieReviewModel.fromJson(Map<String, dynamic> json) {
-    return MovieReviewModel(
+  factory ReviewModel.fromJson(Map<String, dynamic> json) {
+    return ReviewModel(
       author: json['author'],
       content: json['content'] as String?,
       id: json['id'] as String?,

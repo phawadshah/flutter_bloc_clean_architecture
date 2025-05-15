@@ -5,6 +5,7 @@ import 'package:sgm_block/core/domain/entities/media.dart';
 import 'package:sgm_block/core/domain/entities/media_details.dart';
 import 'package:sgm_block/core/domain/entities/media_list.dart';
 import 'package:sgm_block/features/tv_shows/data/datasource/tv_shows_remote_datasource.dart';
+import 'package:sgm_block/features/tv_shows/domain/enitites/tv_show_episode.dart';
 import 'package:sgm_block/features/tv_shows/domain/repository/tv_shows_repository.dart';
 
 class TvShowsRepositoryImpl extends TvShowsRepository {
@@ -42,6 +43,20 @@ class TvShowsRepositoryImpl extends TvShowsRepository {
   Future<Either<Failure, MediaDetails>> getTvShowDetails(int id) async {
     try {
       final res = await _tvShowsRemoteDataSource.getTvShowDetails(id);
+      return Right(res);
+    } on ServerException catch (failure) {
+      return Left(ServerFailure(failure.errorMessageModel.statusMessage));
+    } catch (exception) {
+      return Left(ServerFailure(exception.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<TvShowEpisode>>> getTvShowEpisodes(
+      int tvShowId, int season) async {
+    try {
+      final res =
+          await _tvShowsRemoteDataSource.getTvShowEpisodes(tvShowId, season);
       return Right(res);
     } on ServerException catch (failure) {
       return Left(ServerFailure(failure.errorMessageModel.statusMessage));

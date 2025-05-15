@@ -17,6 +17,10 @@ class TvShowsBloc extends Bloc<TvShowsEvent, TvShowsState> {
     GetTvShowsEvent event,
     Emitter<TvShowsState> emit,
   ) async {
+    if (state.status == RequestStatus.error) {
+      emit(state.copyWith(status: RequestStatus.retrying));
+    }
+
     final result = await _getTvShowsUseCase(const []);
     result.fold(
       (error) => emit(

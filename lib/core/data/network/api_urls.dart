@@ -75,12 +75,18 @@ class APiUrls {
   }
 
   static Uri getTvShowDetails(int id) {
-    return _buildUrl("${ApiEndpoints.tv}/$id");
+    return _buildUrl("${ApiEndpoints.tv}/$id", queryParameters: {
+      ApiQueryParameters.appendToResponse: "credits,similar,reviews,videos",
+    });
   }
 
   static Uri getTvShowsList(String category, {int page = 1}) {
     return _buildUrl("${ApiEndpoints.tv}/$category",
         queryParameters: {ApiQueryParameters.page: page.toString()});
+  }
+
+  static Uri getTvShowEpisodes(int tvShowId, int season) {
+    return _buildUrl("${ApiEndpoints.tv}/$tvShowId/season/$season");
   }
 
   /// Persons

@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sgm_block/core/domain/entities/media_details.dart';
 import 'package:sgm_block/core/presentation/components/poster.dart';
 import 'package:sgm_block/features/movies/domain/entities/movie_details.dart';
+import 'package:sgm_block/features/tv_shows/domain/enitites/tv_show_details.dart';
 import 'package:sgm_block/utils/constants/colors.dart';
 import 'package:sgm_block/utils/constants/values.dart';
 import 'package:sgm_block/utils/extensions/extensions.dart';
@@ -64,6 +65,20 @@ class KDetailsPoster extends StatelessWidget {
                     Text(
                       getFormatedDateMMMyyyy(
                           mediaDetails.releaseDate.toString()),
+                      style: context.titleSmall,
+                    ),
+                  ],
+                ),
+              if (mediaDetails is TvShowDetails)
+                Row(
+                  children: [
+                    Text(
+                      getSeasonsCount(mediaDetails as TvShowDetails),
+                      style: context.titleSmall,
+                    ),
+                    KGaps.small.width,
+                    Text(
+                      getEpisodesCount(mediaDetails as TvShowDetails),
                       style: context.titleSmall,
                     ),
                   ],

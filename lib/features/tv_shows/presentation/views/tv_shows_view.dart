@@ -27,7 +27,7 @@ class TvShowsView extends StatelessWidget {
           builder: (context, state) {
             switch (state.status) {
               case RequestStatus.loading:
-                return KRetryLoader(key: key);
+                return KLoader(key: key);
               case RequestStatus.loaded:
                 return TvShowsWidget(
                   trending: state.tvShows[0],

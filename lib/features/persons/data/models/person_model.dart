@@ -1,4 +1,3 @@
-import 'package:sgm_block/features/movies/data/models/movie_cast_model.dart';
 import 'package:sgm_block/features/movies/data/models/movie_model.dart';
 import 'package:sgm_block/features/persons/domain/entities/person.dart';
 import 'package:sgm_block/utils/helper.dart';
@@ -21,7 +20,7 @@ class PersonModel extends Person {
     return PersonModel(
       id: json['id'] as int,
       name: json['name'] as String,
-      img: getCastProfileImage(json),
+      img: getCastProfileImageUrl(json),
       biography: json["biography"] as String?,
       birthday: json["birthday"] as String?,
       deathday: json['deathday'] as String?,
